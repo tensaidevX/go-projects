@@ -26,7 +26,7 @@ func GetBookById(w http.ResponseWriter, r *http.Request) {
 	bookId := vars["bookId"]
 	ID, err := strconv.ParseInt(bookId, 0, 0)
 	if err != nil {
-		fmt.Println("error while parsing")
+		fmt.Println("Error while parsing")
 	}
 	bookDetails, _ := models.GetBookById(ID)
 	res, _ := json.Marshal(bookDetails)
@@ -44,17 +44,19 @@ func CreateBook(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
+// Parsing the request body into a `Book` model allows us to extract and structure the incoming data according to the `Book` entity's properties. This ensures that we can validate and handle the data correctly within our application, making it easier to perform operations like saving to a database or applying business logic relevant to a `Book` object.
+
 func DeleteBook(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	bookId := vars["bookId"]
 	ID, err := strconv.ParseInt(bookId, 0, 0)
 	if err != nil {
-		fmt.Println("error while parsing")
+		fmt.Println(("error while parsing"))
 	}
 	book := models.DeleteBook(ID)
 	res, _ := json.Marshal(book)
 	w.Header().Set("Content-Type", "pkglication/json")
-	w.WriteHeader(http.StatusOK)
+	w.WriteHeader((http.StatusOK))
 	w.Write(res)
 }
 
@@ -62,7 +64,7 @@ func UpdateBook(w http.ResponseWriter, r *http.Request) {
 	var updateBook = &models.Book{}
 	utils.ParseBody(r, updateBook)
 	vars := mux.Vars(r)
-	bookId := vars["bookId"]
+	bookId := vars["bookID"]
 	ID, err := strconv.ParseInt(bookId, 0, 0)
 	if err != nil {
 		fmt.Println("error while parsing")
